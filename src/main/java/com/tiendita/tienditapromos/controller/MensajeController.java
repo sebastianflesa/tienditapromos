@@ -25,11 +25,13 @@ public class MensajeController {
   		return ResponseEntity.ok("Microservicio de promos API, envia mensajes a broker RabbitMQ");
 	}
 
-	@PostMapping("/promo")
-	public ResponseEntity<String> enviar(@RequestBody String mensaje) {
+	@PostMapping("/promos/crear")
+	public ResponseEntity<Object> enviar(@RequestBody String mensaje) {
 		mensajeService.enviarMensaje(mensaje);
 		System.err.println("Mensaje enviado al broker: " + mensaje);
-		return ResponseEntity.ok("Mensaje enviado al broker: " + mensaje);
+		return ResponseEntity.ok(
+			java.util.Collections.singletonMap("mensaje", "Mensaje enviado al broker: " + mensaje)
+		);
 	}
 
 	/*
